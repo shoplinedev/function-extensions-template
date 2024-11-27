@@ -1,0 +1,122 @@
+schema {
+  query: Input
+}
+
+type BuyerIdentity {
+  customer: Customer
+  email: String
+  phone: String
+}
+
+type Checkout {
+  buyerIdentity: BuyerIdentity
+  cost: CheckoutCost!
+  deliveryGroups: [CheckoutDeliveryGroup]!
+  lines: [CheckoutLine]!
+}
+
+type CheckoutCost {
+  subtotalAmount: Money!
+  totalAmount: Money!
+  totalTaxAmount: Money
+}
+
+type CheckoutDeliveryGroup {
+  checkoutLines: [CheckoutLine]!
+  deliveryAddress: MailingAddress
+  deliveryOptions: [CheckoutDeliveryOption]!
+  id: [ID]!
+  selectedDeliveryOption: CheckoutDeliveryOption
+}
+
+type CheckoutDeliveryOption {
+  cost: Money!
+  deliveryMethodType: String
+  description: String!
+  handle: String!
+  title: String
+}
+
+type CheckoutLine {
+  cost: CheckoutLineCost!
+  id: ID!
+  merchandise: ProductVariant!
+  quantity: Int!
+}
+
+type CheckoutLineCost {
+  amountPerQuantity: Money!
+  subtotalAmount: Money!
+  totalAmount: Money!
+}
+
+type Customer {
+  displayName: String!
+  email: String
+  id: ID!
+}
+
+type ExchangeRate {
+  rate: String!
+}
+
+type Input {
+  checkout: Checkout!
+  localization: Localization!
+  paymentCustomizations: [PaymentCustomization]!
+  paymentMethods: [PaymentCustomizationPaymentMethod]!
+  presentmentCurrencyRate: ExchangeRate!
+}
+
+type Localization {
+  country: String!
+  language: String!
+}
+
+type MailingAddress {
+  address1: String
+  address2: String
+  city: String
+  company: String
+  countryCode: String
+  firstName: String
+  lastName: String
+  name: String
+  phone: String
+  provinceCode: String
+  zip: String
+}
+
+type Metafield {
+  type: String!
+  value: String!
+}
+
+type Money {
+  amount: String!
+  currencyCode: String!
+}
+
+type PaymentCustomization {
+  metafield(key: String!, namespace: String!): Metafield
+}
+
+type PaymentCustomizationPaymentMethod {
+  id: ID!
+  name: String!
+}
+
+type Product {
+  handle: String!
+  id: ID!
+  isGiftCard: Boolean!
+}
+
+type ProductVariant {
+  id: ID!
+  product: Product!
+  requiresShipping: Boolean!
+  sku: String
+  weight: Float
+  weightUnit: String
+}

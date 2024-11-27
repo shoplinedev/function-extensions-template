@@ -1,0 +1,14 @@
+query Input {
+  checkout {
+    cost {
+      totalAmount {
+        amount
+      }
+    }
+  }
+  paymentCustomizations {
+    metafield(namespace: "payment-customization", key: "function-configuration") {
+      value, type
+    }
+  }
+}
