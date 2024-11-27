@@ -1,4 +1,4 @@
-package function_extension_template
+package function_extensions_template
 
 // #include <stdlib.h>
 import "C"
