@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/mailru/easyjson"
-	"gopkg.inshopline.com/gsoul/function"
+	function "github.com/shoplinedev/function-extensions-template"
 	"gopkg.inshopline.com/gsoul/function-proxy/template/product-discount-customizations/module"
 )
 
