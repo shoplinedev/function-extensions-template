@@ -1,0 +1,9 @@
+query Input {
+    cart {
+        cost {
+            subtotalAmount {
+                amount
+            }
+        }
+    }
+}

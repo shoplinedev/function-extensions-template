@@ -1,0 +1,11 @@
+version = "v20231201"
+type = "product-discount-customizations"
+name = "{{ name }}"
+
+[build]
+command = "sl-function build"
+path = "dist/function.wasm"
+
+[ui.paths]
+create = "/product-discount-customizations/:functionId/new"
+details = "/product-discount-customizations/:functionId/:id"

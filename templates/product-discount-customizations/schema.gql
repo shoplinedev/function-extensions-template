@@ -1,0 +1,115 @@
+schema {
+  query: Input
+}
+
+type BuyerIdentityInput {
+  customer: CustomerInput
+  email: String
+  phone: String
+  purchasingCompany: PurchasingCompanyInput
+}
+
+type CartCostInput {
+  subtotalAmount: MoneyV2
+}
+
+type CartInput {
+  buyerIdentity: BuyerIdentityInput
+  cost: CartCostInput
+  lines: [CartLineInput]
+}
+
+type CartLineInput {
+  cost: CartCostInput
+  id: String
+  merchandise: MerchandiseInput
+  quantity: Int
+}
+
+type CompanyContactInput {
+  id: String
+}
+
+type CompanyInput {
+  id: String
+  name: String
+}
+
+type CompanyLocationInput {
+  id: String
+  name: String
+}
+
+type CustomerInput {
+  email: String
+  id: String
+  metafields: [Metafield]
+  phone: String
+}
+
+type DiscountNode {
+  metafields: [Metafield]
+  priceRuleId: String
+}
+
+type Input {
+  cart(customerMetafield: [MetafieldInput], productMetafield: [MetafieldInput], variantMetafield: [MetafieldInput]): CartInput
+  discountNodes: [DiscountNode]
+  localization: LocalizationInput
+}
+
+type LocalizationInput {
+  country: String
+  language: String
+  marketId: String
+}
+
+type MerchandiseInput {
+  productVariant: ProductVariantInput
+}
+
+type Metafield {
+  key: String!
+  namespace: String
+  type: String!
+  value: String!
+}
+
+input MetafieldInput {
+  key: String
+  namespace: String
+}
+
+type MoneyV2 {
+  amount: String
+  currencyCode: String
+}
+
+type ProductInput {
+  handle: String
+  id: String
+  inSalesPlanGroup: Boolean
+  isGiftCard: String
+  metafields: [Metafield]
+  productType: Int
+  title: String
+}
+
+type ProductVariantInput {
+  compareAtPrice: String
+  isCustom: Boolean
+  metafields: [Metafield]
+  price: String
+  product: ProductInput
+  requiresShipping: Boolean
+  sku: String
+  title: String
+  weight: String
+  weightUnit: String
+}
+
+type PurchasingCompanyInput {
+  company: CompanyInput
+  companyContact: CompanyContactInput
+  companyLocation: CompanyLocationInput
+}

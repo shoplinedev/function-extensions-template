@@ -1,0 +1,15 @@
+{
+  "name": "product-discount-customizations",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@shoplinedev/function": "^0.0.1",
+    "@types/node": "^20.4.8",
+    "typescript": "^5.1.6"
+  }
+}
