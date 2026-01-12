@@ -26,6 +26,11 @@ type CartLineInput {
   quantity: Int
 }
 
+type CollectionMembership {
+  collectionId: String
+  isMember: Boolean
+}
+
 type CompanyContactInput {
   id: String
 }
@@ -53,7 +58,7 @@ type DiscountNode {
 }
 
 type Input {
-  cart(customerMetafield: [MetafieldInput], productMetafield: [MetafieldInput], variantMetafield: [MetafieldInput]): CartInput
+  cart(inAnyCollectionIds: [String], inCollections: [String], customerMetafield: [MetafieldInput], productMetafield: [MetafieldInput], variantMetafield: [MetafieldInput]): CartInput
   discountNodes: [DiscountNode]
   localization: LocalizationInput
 }
@@ -88,6 +93,8 @@ type MoneyV2 {
 type ProductInput {
   handle: String
   id: String
+  inAnyCollection: Boolean
+  inCollections: [CollectionMembership]
   inSalesPlanGroup: Boolean
   isGiftCard: String
   metafields: [Metafield]

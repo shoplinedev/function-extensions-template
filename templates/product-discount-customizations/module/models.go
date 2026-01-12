@@ -151,6 +151,11 @@ type CartLineInput struct {
 	Quantity    *int64            `json:"quantity"`
 }
 
+type CollectionMembership struct {
+	CollectionId *string `json:"collectionId"`
+	IsMember     *bool   `json:"isMember"`
+}
+
 type CompanyContactInput struct {
 	Id *string `json:"id"`
 }
@@ -213,13 +218,15 @@ type MoneyV2 struct {
 }
 
 type ProductInput struct {
-	Handle           *string      `json:"handle"`
-	Id               *string      `json:"id"`
-	InSalesPlanGroup *bool        `json:"inSalesPlanGroup"`
-	IsGiftCard       *string      `json:"isGiftCard"`
-	Metafields       []*Metafield `json:"metafields"`
-	ProductType      *int64       `json:"productType"`
-	Title            *string      `json:"title"`
+	Handle           *string                 `json:"handle"`
+	Id               *string                 `json:"id"`
+	InAnyCollection  *bool                   `json:"inAnyCollection"`
+	InCollections    []*CollectionMembership `json:"inCollections"`
+	InSalesPlanGroup *bool                   `json:"inSalesPlanGroup"`
+	IsGiftCard       *string                 `json:"isGiftCard"`
+	Metafields       []*Metafield            `json:"metafields"`
+	ProductType      *int64                  `json:"productType"`
+	Title            *string                 `json:"title"`
 }
 
 type ProductVariantInput struct {

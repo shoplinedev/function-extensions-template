@@ -1495,6 +1495,47 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 				}
 				*out.Id = string(in.String())
 			}
+		case "inAnyCollection":
+			if in.IsNull() {
+				in.Skip()
+				out.InAnyCollection = nil
+			} else {
+				if out.InAnyCollection == nil {
+					out.InAnyCollection = new(bool)
+				}
+				*out.InAnyCollection = bool(in.Bool())
+			}
+		case "inCollections":
+			if in.IsNull() {
+				in.Skip()
+				out.InCollections = nil
+			} else {
+				in.Delim('[')
+				if out.InCollections == nil {
+					if !in.IsDelim(']') {
+						out.InCollections = make([]*CollectionMembership, 0, 8)
+					} else {
+						out.InCollections = []*CollectionMembership{}
+					}
+				} else {
+					out.InCollections = (out.InCollections)[:0]
+				}
+				for !in.IsDelim(']') {
+					var v34 *CollectionMembership
+					if in.IsNull() {
+						in.Skip()
+						v34 = nil
+					} else {
+						if v34 == nil {
+							v34 = new(CollectionMembership)
+						}
+						(*v34).UnmarshalEasyJSON(in)
+					}
+					out.InCollections = append(out.InCollections, v34)
+					in.WantComma()
+				}
+				in.Delim(']')
+			}
 		case "inSalesPlanGroup":
 			if in.IsNull() {
 				in.Skip()
@@ -1531,17 +1572,17 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 					out.Metafields = (out.Metafields)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v34 *Metafield
+					var v35 *Metafield
 					if in.IsNull() {
 						in.Skip()
-						v34 = nil
+						v35 = nil
 					} else {
-						if v34 == nil {
-							v34 = new(Metafield)
+						if v35 == nil {
+							v35 = new(Metafield)
 						}
-						(*v34).UnmarshalEasyJSON(in)
+						(*v35).UnmarshalEasyJSON(in)
 					}
-					out.Metafields = append(out.Metafields, v34)
+					out.Metafields = append(out.Metafields, v35)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -1599,6 +1640,35 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 		}
 	}
 	{
+		const prefix string = ",\"inAnyCollection\":"
+		out.RawString(prefix)
+		if in.InAnyCollection == nil {
+			out.RawString("null")
+		} else {
+			out.Bool(bool(*in.InAnyCollection))
+		}
+	}
+	{
+		const prefix string = ",\"inCollections\":"
+		out.RawString(prefix)
+		if in.InCollections == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
+			out.RawString("null")
+		} else {
+			out.RawByte('[')
+			for v36, v37 := range in.InCollections {
+				if v36 > 0 {
+					out.RawByte(',')
+				}
+				if v37 == nil {
+					out.RawString("null")
+				} else {
+					(*v37).MarshalEasyJSON(out)
+				}
+			}
+			out.RawByte(']')
+		}
+	}
+	{
 		const prefix string = ",\"inSalesPlanGroup\":"
 		out.RawString(prefix)
 		if in.InSalesPlanGroup == nil {
@@ -1623,14 +1693,14 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v35, v36 := range in.Metafields {
-				if v35 > 0 {
+			for v38, v39 := range in.Metafields {
+				if v38 > 0 {
 					out.RawByte(',')
 				}
-				if v36 == nil {
+				if v39 == nil {
 					out.RawString("null")
 				} else {
-					(*v36).MarshalEasyJSON(out)
+					(*v39).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -1987,17 +2057,17 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 					out.Discounts = (out.Discounts)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v37 *ProductDiscount
+					var v40 *ProductDiscount
 					if in.IsNull() {
 						in.Skip()
-						v37 = nil
+						v40 = nil
 					} else {
-						if v37 == nil {
-							v37 = new(ProductDiscount)
+						if v40 == nil {
+							v40 = new(ProductDiscount)
 						}
-						(*v37).UnmarshalEasyJSON(in)
+						(*v40).UnmarshalEasyJSON(in)
 					}
-					out.Discounts = append(out.Discounts, v37)
+					out.Discounts = append(out.Discounts, v40)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -2023,14 +2093,14 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v38, v39 := range in.Discounts {
-				if v38 > 0 {
+			for v41, v42 := range in.Discounts {
+				if v41 > 0 {
 					out.RawByte(',')
 				}
-				if v39 == nil {
+				if v42 == nil {
 					out.RawString("null")
 				} else {
-					(*v39).MarshalEasyJSON(out)
+					(*v42).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -2107,17 +2177,17 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 					out.DiscountNodes = (out.DiscountNodes)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v40 *DiscountNode
+					var v43 *DiscountNode
 					if in.IsNull() {
 						in.Skip()
-						v40 = nil
+						v43 = nil
 					} else {
-						if v40 == nil {
-							v40 = new(DiscountNode)
+						if v43 == nil {
+							v43 = new(DiscountNode)
 						}
-						(*v40).UnmarshalEasyJSON(in)
+						(*v43).UnmarshalEasyJSON(in)
 					}
-					out.DiscountNodes = append(out.DiscountNodes, v40)
+					out.DiscountNodes = append(out.DiscountNodes, v43)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -2162,14 +2232,14 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v41, v42 := range in.DiscountNodes {
-				if v41 > 0 {
+			for v44, v45 := range in.DiscountNodes {
+				if v44 > 0 {
 					out.RawByte(',')
 				}
-				if v42 == nil {
+				if v45 == nil {
 					out.RawString("null")
 				} else {
-					(*v42).MarshalEasyJSON(out)
+					(*v45).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -2275,17 +2345,17 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 					out.Targets = (out.Targets)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v43 *ProductDiscountTarget
+					var v46 *ProductDiscountTarget
 					if in.IsNull() {
 						in.Skip()
-						v43 = nil
+						v46 = nil
 					} else {
-						if v43 == nil {
-							v43 = new(ProductDiscountTarget)
+						if v46 == nil {
+							v46 = new(ProductDiscountTarget)
 						}
-						(*v43).UnmarshalEasyJSON(in)
+						(*v46).UnmarshalEasyJSON(in)
 					}
-					out.Targets = append(out.Targets, v43)
+					out.Targets = append(out.Targets, v46)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -2348,14 +2418,14 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v44, v45 := range in.Targets {
-				if v44 > 0 {
+			for v47, v48 := range in.Targets {
+				if v47 > 0 {
 					out.RawByte(',')
 				}
-				if v45 == nil {
+				if v48 == nil {
 					out.RawString("null")
 				} else {
-					(*v45).MarshalEasyJSON(out)
+					(*v48).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -3006,17 +3076,17 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 					out.DiscountNodes = (out.DiscountNodes)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v46 *DiscountNode
+					var v49 *DiscountNode
 					if in.IsNull() {
 						in.Skip()
-						v46 = nil
+						v49 = nil
 					} else {
-						if v46 == nil {
-							v46 = new(DiscountNode)
+						if v49 == nil {
+							v49 = new(DiscountNode)
 						}
-						(*v46).UnmarshalEasyJSON(in)
+						(*v49).UnmarshalEasyJSON(in)
 					}
-					out.DiscountNodes = append(out.DiscountNodes, v46)
+					out.DiscountNodes = append(out.DiscountNodes, v49)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -3061,14 +3131,14 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v47, v48 := range in.DiscountNodes {
-				if v47 > 0 {
+			for v50, v51 := range in.DiscountNodes {
+				if v50 > 0 {
 					out.RawByte(',')
 				}
-				if v48 == nil {
+				if v51 == nil {
 					out.RawString("null")
 				} else {
-					(*v48).MarshalEasyJSON(out)
+					(*v51).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -3144,17 +3214,17 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 					out.Metafields = (out.Metafields)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v49 *Metafield
+					var v52 *Metafield
 					if in.IsNull() {
 						in.Skip()
-						v49 = nil
+						v52 = nil
 					} else {
-						if v49 == nil {
-							v49 = new(Metafield)
+						if v52 == nil {
+							v52 = new(Metafield)
 						}
-						(*v49).UnmarshalEasyJSON(in)
+						(*v52).UnmarshalEasyJSON(in)
 					}
-					out.Metafields = append(out.Metafields, v49)
+					out.Metafields = append(out.Metafields, v52)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -3190,14 +3260,14 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v50, v51 := range in.Metafields {
-				if v50 > 0 {
+			for v53, v54 := range in.Metafields {
+				if v53 > 0 {
 					out.RawByte(',')
 				}
-				if v51 == nil {
+				if v54 == nil {
 					out.RawString("null")
 				} else {
-					(*v51).MarshalEasyJSON(out)
+					(*v54).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -3293,17 +3363,17 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 					out.Metafields = (out.Metafields)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v52 *Metafield
+					var v55 *Metafield
 					if in.IsNull() {
 						in.Skip()
-						v52 = nil
+						v55 = nil
 					} else {
-						if v52 == nil {
-							v52 = new(Metafield)
+						if v55 == nil {
+							v55 = new(Metafield)
 						}
-						(*v52).UnmarshalEasyJSON(in)
+						(*v55).UnmarshalEasyJSON(in)
 					}
-					out.Metafields = append(out.Metafields, v52)
+					out.Metafields = append(out.Metafields, v55)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -3357,14 +3427,14 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v53, v54 := range in.Metafields {
-				if v53 > 0 {
+			for v56, v57 := range in.Metafields {
+				if v56 > 0 {
 					out.RawByte(',')
 				}
-				if v54 == nil {
+				if v57 == nil {
 					out.RawString("null")
 				} else {
-					(*v54).MarshalEasyJSON(out)
+					(*v57).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -3677,7 +3747,104 @@ func (v *CompanyContactInput) UnmarshalJSON(data []byte) error {
 func (v *CompanyContactInput) UnmarshalEasyJSON(l *jlexer.Lexer) {
 	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule26(l, v)
 }
-func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule27(in *jlexer.Lexer, out *CartLineTarget) {
+func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule27(in *jlexer.Lexer, out *CollectionMembership) {
+	isTopLevel := in.IsStart()
+	if in.IsNull() {
+		if isTopLevel {
+			in.Consumed()
+		}
+		in.Skip()
+		return
+	}
+	in.Delim('{')
+	for !in.IsDelim('}') {
+		key := in.UnsafeFieldName(false)
+		in.WantColon()
+		if in.IsNull() {
+			in.Skip()
+			in.WantComma()
+			continue
+		}
+		switch key {
+		case "collectionId":
+			if in.IsNull() {
+				in.Skip()
+				out.CollectionId = nil
+			} else {
+				if out.CollectionId == nil {
+					out.CollectionId = new(string)
+				}
+				*out.CollectionId = string(in.String())
+			}
+		case "isMember":
+			if in.IsNull() {
+				in.Skip()
+				out.IsMember = nil
+			} else {
+				if out.IsMember == nil {
+					out.IsMember = new(bool)
+				}
+				*out.IsMember = bool(in.Bool())
+			}
+		default:
+			in.SkipRecursive()
+		}
+		in.WantComma()
+	}
+	in.Delim('}')
+	if isTopLevel {
+		in.Consumed()
+	}
+}
+func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule27(out *jwriter.Writer, in CollectionMembership) {
+	out.RawByte('{')
+	first := true
+	_ = first
+	{
+		const prefix string = ",\"collectionId\":"
+		out.RawString(prefix[1:])
+		if in.CollectionId == nil {
+			out.RawString("null")
+		} else {
+			out.String(string(*in.CollectionId))
+		}
+	}
+	{
+		const prefix string = ",\"isMember\":"
+		out.RawString(prefix)
+		if in.IsMember == nil {
+			out.RawString("null")
+		} else {
+			out.Bool(bool(*in.IsMember))
+		}
+	}
+	out.RawByte('}')
+}
+
+// MarshalJSON supports json.Marshaler interface
+func (v CollectionMembership) MarshalJSON() ([]byte, error) {
+	w := jwriter.Writer{}
+	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule27(&w, v)
+	return w.Buffer.BuildBytes(), w.Error
+}
+
+// MarshalEasyJSON supports easyjson.Marshaler interface
+func (v CollectionMembership) MarshalEasyJSON(w *jwriter.Writer) {
+	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule27(w, v)
+}
+
+// UnmarshalJSON supports json.Unmarshaler interface
+func (v *CollectionMembership) UnmarshalJSON(data []byte) error {
+	r := jlexer.Lexer{Data: data}
+	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule27(&r, v)
+	return r.Error()
+}
+
+// UnmarshalEasyJSON supports easyjson.Unmarshaler interface
+func (v *CollectionMembership) UnmarshalEasyJSON(l *jlexer.Lexer) {
+	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule27(l, v)
+}
+func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule28(in *jlexer.Lexer, out *CartLineTarget) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -3726,7 +3893,7 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 		in.Consumed()
 	}
 }
-func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule27(out *jwriter.Writer, in CartLineTarget) {
+func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule28(out *jwriter.Writer, in CartLineTarget) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -3754,27 +3921,27 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 // MarshalJSON supports json.Marshaler interface
 func (v CartLineTarget) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule27(&w, v)
+	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule28(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v CartLineTarget) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule27(w, v)
+	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule28(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *CartLineTarget) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule27(&r, v)
+	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule28(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *CartLineTarget) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule27(l, v)
+	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule28(l, v)
 }
-func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule28(in *jlexer.Lexer, out *CartLineInput) {
+func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule29(in *jlexer.Lexer, out *CartLineInput) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -3843,7 +4010,7 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 		in.Consumed()
 	}
 }
-func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule28(out *jwriter.Writer, in CartLineInput) {
+func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule29(out *jwriter.Writer, in CartLineInput) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -3889,27 +4056,27 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 // MarshalJSON supports json.Marshaler interface
 func (v CartLineInput) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule28(&w, v)
+	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule29(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v CartLineInput) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule28(w, v)
+	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule29(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *CartLineInput) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule28(&r, v)
+	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule29(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *CartLineInput) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule28(l, v)
+	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule29(l, v)
 }
-func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule29(in *jlexer.Lexer, out *CartInput) {
+func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule30(in *jlexer.Lexer, out *CartInput) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -3964,17 +4131,17 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 					out.Lines = (out.Lines)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v55 *CartLineInput
+					var v58 *CartLineInput
 					if in.IsNull() {
 						in.Skip()
-						v55 = nil
+						v58 = nil
 					} else {
-						if v55 == nil {
-							v55 = new(CartLineInput)
+						if v58 == nil {
+							v58 = new(CartLineInput)
 						}
-						(*v55).UnmarshalEasyJSON(in)
+						(*v58).UnmarshalEasyJSON(in)
 					}
-					out.Lines = append(out.Lines, v55)
+					out.Lines = append(out.Lines, v58)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -3989,7 +4156,7 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 		in.Consumed()
 	}
 }
-func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule29(out *jwriter.Writer, in CartInput) {
+func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule30(out *jwriter.Writer, in CartInput) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -4018,14 +4185,14 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v56, v57 := range in.Lines {
-				if v56 > 0 {
+			for v59, v60 := range in.Lines {
+				if v59 > 0 {
 					out.RawByte(',')
 				}
-				if v57 == nil {
+				if v60 == nil {
 					out.RawString("null")
 				} else {
-					(*v57).MarshalEasyJSON(out)
+					(*v60).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -4037,27 +4204,27 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 // MarshalJSON supports json.Marshaler interface
 func (v CartInput) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule29(&w, v)
+	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule30(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v CartInput) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule29(w, v)
+	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule30(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *CartInput) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule29(&r, v)
+	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule30(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *CartInput) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule29(l, v)
+	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule30(l, v)
 }
-func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule30(in *jlexer.Lexer, out *CartCostInput) {
+func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule31(in *jlexer.Lexer, out *CartCostInput) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -4096,7 +4263,7 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 		in.Consumed()
 	}
 }
-func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule30(out *jwriter.Writer, in CartCostInput) {
+func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule31(out *jwriter.Writer, in CartCostInput) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -4115,27 +4282,27 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 // MarshalJSON supports json.Marshaler interface
 func (v CartCostInput) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule30(&w, v)
+	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule31(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v CartCostInput) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule30(w, v)
+	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule31(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *CartCostInput) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule30(&r, v)
+	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule31(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *CartCostInput) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule30(l, v)
+	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule31(l, v)
 }
-func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule31(in *jlexer.Lexer, out *BuyerIdentityInput) {
+func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule32(in *jlexer.Lexer, out *BuyerIdentityInput) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -4204,7 +4371,7 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 		in.Consumed()
 	}
 }
-func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule31(out *jwriter.Writer, in BuyerIdentityInput) {
+func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule32(out *jwriter.Writer, in BuyerIdentityInput) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -4250,23 +4417,23 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 // MarshalJSON supports json.Marshaler interface
 func (v BuyerIdentityInput) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule31(&w, v)
+	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule32(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v BuyerIdentityInput) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule31(w, v)
+	easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule32(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *BuyerIdentityInput) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule31(&r, v)
+	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule32(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *BuyerIdentityInput) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule31(l, v)
+	easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDiscountCustomizationsModule32(l, v)
 }
