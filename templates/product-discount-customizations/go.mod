@@ -1,4 +1,4 @@
-module gopkg.inshopline.com/gsoul/function-proxy/template/product-discount-customizations
+module github.com/shoplinedev/function-extensions-template/templates/product-discount-customizations
 
 go 1.20
 
