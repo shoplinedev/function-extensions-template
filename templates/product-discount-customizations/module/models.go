@@ -105,7 +105,8 @@ type ProductDiscount struct {
 }
 
 type ProductDiscountTarget struct {
-	CartLine *CartLineTarget `json:"cartLine"`
+	CartLine *CartLineTarget       `json:"cartLine"`
+	Value    *ProductDiscountValue `json:"value"`
 }
 
 type CartLineTarget struct {

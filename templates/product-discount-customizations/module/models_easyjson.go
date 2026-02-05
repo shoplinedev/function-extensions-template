@@ -1876,6 +1876,16 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 				}
 				(*out.CartLine).UnmarshalEasyJSON(in)
 			}
+		case "value":
+			if in.IsNull() {
+				in.Skip()
+				out.Value = nil
+			} else {
+				if out.Value == nil {
+					out.Value = new(ProductDiscountValue)
+				}
+				(*out.Value).UnmarshalEasyJSON(in)
+			}
 		default:
 			in.SkipRecursive()
 		}
@@ -1897,6 +1907,15 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 			out.RawString("null")
 		} else {
 			(*in.CartLine).MarshalEasyJSON(out)
+		}
+	}
+	{
+		const prefix string = ",\"value\":"
+		out.RawString(prefix)
+		if in.Value == nil {
+			out.RawString("null")
+		} else {
+			(*in.Value).MarshalEasyJSON(out)
 		}
 	}
 	out.RawByte('}')
