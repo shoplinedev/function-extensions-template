@@ -131,6 +131,7 @@ type Percentage struct {
 type BuyerIdentityInput struct {
 	Customer          *CustomerInput          `json:"customer"`
 	Email             *string                 `json:"email"`
+	IsAuthenticated   *bool                   `json:"isAuthenticated"`
 	Phone             *string                 `json:"phone"`
 	PurchasingCompany *PurchasingCompanyInput `json:"purchasingCompany"`
 }

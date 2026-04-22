@@ -4360,6 +4360,16 @@ func easyjsonD2b7633eDecodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 				}
 				*out.Email = string(in.String())
 			}
+		case "isAuthenticated":
+			if in.IsNull() {
+				in.Skip()
+				out.IsAuthenticated = nil
+			} else {
+				if out.IsAuthenticated == nil {
+					out.IsAuthenticated = new(bool)
+				}
+				*out.IsAuthenticated = bool(in.Bool())
+			}
 		case "phone":
 			if in.IsNull() {
 				in.Skip()
@@ -4410,6 +4420,15 @@ func easyjsonD2b7633eEncodeGopkgInshoplineComGsoulFunctionProxyTemplateProductDi
 			out.RawString("null")
 		} else {
 			out.String(string(*in.Email))
+		}
+	}
+	{
+		const prefix string = ",\"isAuthenticated\":"
+		out.RawString(prefix)
+		if in.IsAuthenticated == nil {
+			out.RawString("null")
+		} else {
+			out.Bool(bool(*in.IsAuthenticated))
 		}
 	}
 	{

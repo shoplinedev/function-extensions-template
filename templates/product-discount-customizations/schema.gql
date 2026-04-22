@@ -5,6 +5,7 @@ schema {
 type BuyerIdentityInput {
   customer: CustomerInput
   email: String
+  isAuthenticated: Boolean
   phone: String
   purchasingCompany: PurchasingCompanyInput
 }
