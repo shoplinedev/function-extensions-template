@@ -1,0 +1,11 @@
+version = "v20231201"
+type = "cart-flex"
+name = "{{ name }}"
+
+[build]
+command = "sl-function build"
+path = "dist/function.wasm"
+
+[ui.paths]
+create = "/cart-flex/:functionId/new"
+details = "/cart-flex/:functionId/:id"

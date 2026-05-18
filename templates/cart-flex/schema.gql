@@ -1,0 +1,146 @@
+schema {
+  query: Input
+}
+
+type Attribute {
+  key: String
+  value: String
+}
+
+type BuyerIdentity {
+  customer: Customer
+  email: String
+  phone: String
+  purchasingCompany: PurchasingCompany
+}
+
+type Cart {
+  attributes: [Attribute]
+  buyerIdentity: BuyerIdentity
+  lines: [LineItem]!
+  metafields: [Metafield]
+}
+
+type CartFlex {
+  metafield: Metafield
+}
+
+type Company {
+  id: ID!
+  metafields: [Metafield]
+  name: String
+}
+
+type CompanyContact {
+  id: ID!
+}
+
+type CompanyLocation {
+  id: ID!
+  name: String
+}
+
+type Customer {
+  displayName: String!
+  email: String
+  id: ID!
+  metafields: [Metafield]
+  phone: String
+}
+
+type ExchangeRate {
+  currencyCode: String
+  rate: String!
+}
+
+type Input {
+  cart(companyMetafields: [MetafieldInput], productMetafields: [MetafieldInput], productVariantMetafields: [MetafieldInput], cartMetafields: [MetafieldInput], customerMetafields: [MetafieldInput]): Cart!
+  cartFlex: CartFlex!
+  localization: Localization!
+  presentmentCurrencyRate: ExchangeRate!
+  shop: Shop
+}
+
+type LineItem {
+  cost: LineItemCost!
+  id: ID!
+  merchandise: ProductVariant!
+  properties: [Property]
+  quantity: Int!
+}
+
+type LineItemCost {
+  finalPrice: Money!
+  price: Money!
+  subtotalAmount: Money!
+  totalAmount: Money!
+}
+
+type Localization {
+  country: String!
+  language: String!
+}
+
+type Metafield {
+  key: String!
+  namespace: String
+  type: String!
+  value: String!
+}
+
+input MetafieldInput {
+  namespace: String
+  key: String
+}
+
+type Money {
+  amount: String!
+  currencyCode: String!
+}
+
+type Product {
+  category: Int
+  customCategory: String
+  handle: String!
+  id: ID!
+  inSalesPlanGroup: Boolean
+  isGiftCard: Boolean!
+  metafields: [Metafield]
+  title: String
+}
+
+type ProductVariant {
+  compareAtPrice: Money
+  id: ID!
+  isCustom: Boolean
+  metafields: [Metafield]
+  price: Money
+  product: Product!
+  requiresShipping: Boolean!
+  sku: String
+  title: String
+  weight: Float
+  weightUnit: String
+}
+
+type Property {
+  additional: String
+  extInfo: String
+  name: String
+  roleVisibility: String
+  show: Boolean
+  type: String
+  urls: [String]
+  value: String
+}
+
+type PurchasingCompany {
+  company: Company
+  companyContact: CompanyContact
+  companyLocation: CompanyLocation
+}
+
+type Shop {
+  localTime: String
+}
+
