@@ -8,7 +8,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@shoplinedev/function": "^0.0.1",
+    "@shoplinedev/function": "^0.0.2",
     "@types/node": "^20.4.8",
     "typescript": "^5.1.6"
   }
