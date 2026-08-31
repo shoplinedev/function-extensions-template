@@ -115,8 +115,9 @@ type CartLineTarget struct {
 }
 
 type ProductDiscountValue struct {
-	FixedAmount *ProductDiscountFixedAmount `json:"fixedAmount"`
-	Percentage  *Percentage                 `json:"percentage"`
+	FixedAmount            *ProductDiscountFixedAmount `json:"fixedAmount"`
+	Percentage             *Percentage                 `json:"percentage"`
+	PresentmentFixedAmount *PresentmentFixedAmount     `json:"presentmentFixedAmount"`
 }
 
 type ProductDiscountFixedAmount struct {
@@ -128,6 +129,12 @@ type Percentage struct {
 	Value *string `json:"value"`
 }
 
+type PresentmentFixedAmount struct {
+	Amount            *string `json:"amount"`
+	Currency          *string `json:"currency"`
+	AppliesToEachItem *bool   `json:"appliesToEachItem"`
+}
+
 type BuyerIdentityInput struct {
 	Customer          *CustomerInput          `json:"customer"`
 	Email             *string                 `json:"email"`
@@ -137,7 +144,8 @@ type BuyerIdentityInput struct {
 }
 
 type CartCostInput struct {
-	SubtotalAmount *MoneyV2 `json:"subtotalAmount"`
+	SubtotalAmount    *MoneyV2  `json:"subtotalAmount"`
+	SubtotalAmountSet *MoneySet `json:"subtotalAmountSet"`
 }
 
 type CartInput struct {
@@ -214,6 +222,16 @@ type MetafieldInput struct {
 	Namespace *string `json:"namespace"`
 }
 
+type Money struct {
+	Amount       string `json:"amount"`
+	CurrencyCode string `json:"currencyCode"`
+}
+
+type MoneySet struct {
+	PresentmentMoney *Money `json:"presentmentMoney"`
+	ShopMoney        *Money `json:"shopMoney"`
+}
+
 type MoneyV2 struct {
 	Amount       *string `json:"amount"`
 	CurrencyCode *string `json:"currencyCode"`
@@ -232,16 +250,18 @@ type ProductInput struct {
 }
 
 type ProductVariantInput struct {
-	CompareAtPrice   *string       `json:"compareAtPrice"`
-	IsCustom         *bool         `json:"isCustom"`
-	Metafields       []*Metafield  `json:"metafields"`
-	Price            *string       `json:"price"`
-	Product          *ProductInput `json:"product"`
-	RequiresShipping *bool         `json:"requiresShipping"`
-	Sku              *string       `json:"sku"`
-	Title            *string       `json:"title"`
-	Weight           *string       `json:"weight"`
-	WeightUnit       *string       `json:"weightUnit"`
+	CompareAtPrice    *string       `json:"compareAtPrice"`
+	CompareAtPriceSet *MoneySet     `json:"compareAtPriceSet"`
+	IsCustom          *bool         `json:"isCustom"`
+	Metafields        []*Metafield  `json:"metafields"`
+	Price             *string       `json:"price"`
+	PriceSet          *MoneySet     `json:"priceSet"`
+	Product           *ProductInput `json:"product"`
+	RequiresShipping  *bool         `json:"requiresShipping"`
+	Sku               *string       `json:"sku"`
+	Title             *string       `json:"title"`
+	Weight            *string       `json:"weight"`
+	WeightUnit        *string       `json:"weightUnit"`
 }
 
 type PurchasingCompanyInput struct {

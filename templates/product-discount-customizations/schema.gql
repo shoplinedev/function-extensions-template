@@ -12,6 +12,7 @@ type BuyerIdentityInput {
 
 type CartCostInput {
   subtotalAmount: MoneyV2
+  subtotalAmountSet: MoneySet
 }
 
 type CartInput {
@@ -86,6 +87,16 @@ input MetafieldInput {
   namespace: String
 }
 
+type Money {
+  amount: String!
+  currencyCode: String!
+}
+
+type MoneySet {
+  presentmentMoney: Money
+  shopMoney: Money
+}
+
 type MoneyV2 {
   amount: String
   currencyCode: String
@@ -105,9 +116,11 @@ type ProductInput {
 
 type ProductVariantInput {
   compareAtPrice: String
+  compareAtPriceSet: MoneySet
   isCustom: Boolean
   metafields: [Metafield]
   price: String
+  priceSet: MoneySet
   product: ProductInput
   requiresShipping: Boolean
   sku: String
@@ -121,3 +134,4 @@ type PurchasingCompanyInput {
   companyContact: CompanyContactInput
   companyLocation: CompanyLocationInput
 }
+
